@@ -33,14 +33,16 @@ tspan<-seq(0,300,by=0.1)  # Timespan to evaluate (in months)
 isoV1<-function(x){(b+b*x*(a*h-(1/K1)-a*(1/K1)*h*x))/a}
 isoP<-d/(a*e-a*d*h)
 
-out1<-ode(y0,tspan,LV_Pred_RM,params)
-out1<-data.frame(out1)
+out<-ode(y0,tspan,LV_Pred_RM,params)
+out<-data.frame(out)
 
 par(mfrow=c(1,2))
-plot(out1[,1],out1[,2],type='l',col='green',xlab='Year',ylab='Popn size, V and P',ylim=c(0,300))
-lines(out1[,1],out1[,3],col='blue')
+plot(out[,1],out[,2],type='l',col='green',xlab='Month',ylab='Popn size, V and P',ylim=c(0,12000))
+lines(out[,1],out[,3],col='blue')
 
-plot(out1[,2],out1[,3],type='l',col='red',xlab='V, Prey abundance',ylab='P, Predator abundance',
-     ylim=c(0,100),xlim=c(0,500))
-segments(isoP, 0, isoP, 100,lwd=2)
-curve(isoV1, 0, 300, add = T)
+plot(out[,2],out[,3],type='l',col='red',xlab='V, Prey abundance',ylab='P, Predator abundance',
+     ylim=c(0,2000),xlim=c(0,12000))
+segments(isoP, 0, isoP, 100,lwd=2) #what is the 100 referring to here?
+curve(isoV1, 0, 300, add = T) #what is the 300 referring to here?
+
+#It looks like Graph 1 (Pop size, V&P vs Month) looks okay, but prey abundance vs. predator abundance is off somehow.
