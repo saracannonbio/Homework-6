@@ -36,9 +36,12 @@ isoP<-d/(a*e-a*d*h)
 out<-ode(y0,tspan,LV_Pred_RM,params)
 out<-data.frame(out)
 
-par(mfrow=c(1,2))
+#How can I add a title over both graphs?
+par(mfrow=c(1,2)) #show both plots side-by-side
+
 plot(out[,1],out[,2],type='l',col='green',xlab='Month',ylab='Popn size, V and P',ylim=c(0,12000))
 lines(out[,1],out[,3],col='blue')
+legend(locator(1),c("predator","prey"),pch=c(1,19),col=c("green","blue")) #is also something wrong with the legend?
 
 plot(out[,2],out[,3],type='l',col='red',xlab='V, Prey abundance',ylab='P, Predator abundance',
      ylim=c(0,2000),xlim=c(0,12000))
