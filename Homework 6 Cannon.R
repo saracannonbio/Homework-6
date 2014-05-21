@@ -2,6 +2,8 @@
 
 #Problem 1
 
+rm=(list())
+
 library(deSolve)
 
 LV_Pred_RM<-function(t,y,params){
@@ -36,16 +38,91 @@ isoP<-d/(a*e-a*d*h)
 out<-ode(y0,tspan,LV_Pred_RM,params)
 out<-data.frame(out)
 
-#How can I add a title over both graphs?
-par(mfrow=c(1,2)) #show both plots side-by-side
+#Evaluate scenario for K2
+
+LV_Pred_RM2<-function(t,y,params2){
+  V<-y[1]
+  P<-y[2]
+  with(as.list(params2),{
+    dVdt2<-b*V*(1-(1/K2)*V)-a*V*P/(1+a*h*V)
+    dPdt2<-e*a*V*P/(1+a*h*V)-d*P
+    return(list(c(dVdt2,dPdt2)))
+  })}
+
+params2<-c(b=b,a=a,e=e,d=d,K2=K2,h=h)
+isoV2<-function(x){(b+b*x*(a*h-(1-K2)-a*(1/K2)*h*x))/a}
+out2<-ode(y0,tspan,LV_Pred_RM2,params2)
+out2<-data.frame(out2)
+
+#Evaluate scenario for K3
+
+LV_Pred_RM3<-function(t,y,params3){
+  V<-y[1]
+  P<-y[2]
+  with(as.list(params3),{
+    dVdt3<-b*V*(1-(1/K3)*V)-a*V*P/(1+a*h*V)
+    dPdt3<-e*a*V*P/(1+a*h*V)-d*P
+    return(list(c(dVdt3,dPdt3)))
+  })}
+
+params3<-c(b=b,a=a,e=e,d=d,K3=K3,h=h)
+isoV3<-function(x){(b+b*x*(a*h-(1-K3)-a*(1/K3)*h*x))/a}
+out3<-ode(y0,tspan,LV_Pred_RM3,params3)
+out3<-data.frame(out3)
+
+#Evaluate scenario for K4
+
+LV_Pred_RM4<-function(t,y,params4){
+  V<-y[1]
+  P<-y[2]
+  with(as.list(params4),{
+    dVdt4<-b*V*(1-(1/K4)*V)-a*V*P/(1+a*h*V)
+    dPdt4<-e*a*V*P/(1+a*h*V)-d*P
+    return(list(c(dVdt4,dPdt4)))
+  })}
+
+params4<-c(b=b,a=a,e=e,d=d,K4=K4,h=h)
+isoV4<-function(x){(b+b*x*(a*h-(1-K4)-a*(1/K4)*h*x))/a}
+out4<-ode(y0,tspan,LV_Pred_RM4,params4)
+out4<-data.frame(out4)
+
+
+#Evaluate scenario for K5
+
+LV_Pred_RM5<-function(t,y,params5){
+  V<-y[1]
+  P<-y[2]
+  with(as.list(params5),{
+    dVdt5<-b*V*(1-(1/K5)*V)-a*V*P/(1+a*h*V)
+    dPdt5<-e*a*V*P/(1+a*h*V)-d*P
+    return(list(c(dVdt5,dPdt5)))
+  })}
+
+params5<-c(b=b,a=a,e=e,d=d,K5=K5,h=h)
+isoV5<-function(x){(b+b*x*(a*h-(1-K5)-a*(1/K5)*h*x))/a}
+out5<-ode(y0,tspan,LV_Pred_RM5,params5)
+out5<-data.frame(out5)
+
+#Graphs for each K
+
+par(mfrow=c(2,3)) #show both plots side-by-side
 
 plot(out[,1],out[,2],type='l',col='green',xlab='Month',ylab='Popn size, V and P',ylim=c(0,12000))
 lines(out[,1],out[,3],col='blue')
-legend(locator(1),c("predator","prey"),pch=c(1,19),col=c("green","blue")) #is also something wrong with the legend?
+title(main="K = 15,000")
 
-plot(out[,2],out[,3],type='l',col='red',xlab='V, Prey abundance',ylab='P, Predator abundance',
-     ylim=c(0,2000),xlim=c(0,12000))
-segments(isoP, 0, isoP, 100,lwd=2) #what is the 100 referring to here?
-curve(isoV1, 0, 300, add = T) #what is the 300 referring to here?
+plot(out2[,1],out2[,2],type='l',col='green',xlab='Month',ylab='Popn size, V and P',ylim=c(0,12000))
+lines(out2[,1],out2[,3],col='blue')
+title(main="K = 50,000")
 
-#It looks like Graph 1 (Pop size, V&P vs Month) looks okay, but prey abundance vs. predator abundance is off somehow.
+plot(out3[,1],out3[,2],type='l',col='green',xlab='Month',ylab='Popn size, V and P',ylim=c(0,12000))
+lines(out3[,1],out3[,3],col='blue')
+title(main="K = 100,000")
+
+plot(out4[,1],out4[,2],type='l',col='green',xlab='Month',ylab='Popn size, V and P',ylim=c(0,12000))
+lines(out4[,1],out4[,3],col='blue')
+title(main="K = 1,000,000")
+
+plot(out5[,1],out5[,2],type='l',col='green',xlab='Month',ylab='Popn size, V and P',ylim=c(0,12000))
+lines(out5[,1],out5[,3],col='blue')
+title(main="K = 10,000,000")
