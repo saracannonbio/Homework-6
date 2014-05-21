@@ -185,8 +185,13 @@ matrx1<-function(a11,a12,a21,a22){
 }
 
 J1<-matrx1(a11,a12,a21,a22)
-
+print(J1)
 eigen(J1)
+
+print("Because the diagnol of the Jacobian matrix is not equal to zero, this indicates there is density dependence.")
+print("The eigenvalues are all real numbers, so indicates there are no oscillations.")
+print("Because some of the real parts are <0, this indicates there is an attractor-repellor.")
+
 
 #Evaluate Jacobian matrix for K = 50,000
 
@@ -203,7 +208,11 @@ matrx2<-function(b11,b12,b21,b22){
 
 J2<-matrx2(b11,b12,b21,b22)
 
+print(J2)
 eigen(J2)
+print("The non-zero values in the diagonal of the Jacobian matrix show that there is density dependence.")
+print("Because some of the values of the eigenvalues are <0, this indicates that there is an attractor-repellor.")
+print("Because all of the eigenvalues are real numbers (imaginary parts are absent), there are no oscillations.")
 
 #Evaluate Jacobian matrix for K = 100,000
 
@@ -220,7 +229,11 @@ matrx3<-function(c11,c12,c21,c22){
 
 J3<-matrx3(c11,c12,c21,c22)
 
+print(J3)
 eigen(J3)
+print("Because the Jacobian matrix has non-zero numbers in the diagonal, this shows density dependence.")
+print("The eigenvalues are all real numbers, indicating there are no oscillations.")
+print("Because some of the eigenvalues are <0, this indicates there is an attractor-repellor.")
 
 #Evaluate Jacobian matrix for K = 1,000,000
 
@@ -237,7 +250,12 @@ matrx4<-function(d11,d12,d21,d22){
 
 J4<-matrx4(d11,d12,d21,d22)
 
+print(J4)
 eigen(J4)
+print("Because the Jacobian matrix has non-zero numbers in the diagonal, this shows density dependence.")
+print("The eigenvalues are all real numbers, indicating there are no oscillations.")
+print("Because some of the eigenvalues are <0, this indicates there is an attractor-repellor.")
+
 
 #Evaluate Jacobian matrix for K = 10,000,000
 
@@ -254,4 +272,9 @@ matrx5<-function(e11,e12,e21,e22){
 
 J5<-matrx5(e11,e12,e21,e22)
 
+print(J5)
 eigen(J5)
+
+print("Because the Jacobian matrix has non-zero numbers in the diagonal, this shows density dependence.")
+print("The eigenvalues are all real numbers, indicating there are no oscillations.")
+print("Because some of the eigenvalues are <0, this indicates there is an attractor-repellor.")
