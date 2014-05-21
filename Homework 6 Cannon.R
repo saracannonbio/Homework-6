@@ -186,6 +186,8 @@ matrx1<-function(a11,a12,a21,a22){
 
 J1<-matrx1(a11,a12,a21,a22)
 
+eigen(J1)
+
 #Evaluate Jacobian matrix for K = 50,000
 
 P2<-b/a+(b*V*(a*h-1/K2-a/K2*h*V)/a)
@@ -200,6 +202,8 @@ matrx2<-function(b11,b12,b21,b22){
 }
 
 J2<-matrx2(b11,b12,b21,b22)
+
+eigen(J2)
 
 #Evaluate Jacobian matrix for K = 100,000
 
@@ -216,6 +220,8 @@ matrx3<-function(c11,c12,c21,c22){
 
 J3<-matrx3(c11,c12,c21,c22)
 
+eigen(J3)
+
 #Evaluate Jacobian matrix for K = 1,000,000
 
 P4<-b/a+(b*V*(a*h-1/K4-a/K4*h*V)/a)
@@ -231,6 +237,8 @@ matrx4<-function(d11,d12,d21,d22){
 
 J4<-matrx4(d11,d12,d21,d22)
 
+eigen(J4)
+
 #Evaluate Jacobian matrix for K = 10,000,000
 
 P5<-b/a+(b*V*(a*h-1/K4-a/K4*h*V)/a)
@@ -245,3 +253,5 @@ matrx5<-function(e11,e12,e21,e22){
 }
 
 J5<-matrx5(e11,e12,e21,e22)
+
+eigen(J5)
