@@ -130,6 +130,7 @@ title(main="K = 10,000,000")
 
 #Plot the P-V isoclines for each value of K
 #Need to work on these graphs
+#They all show the population projection, but not the predator or prey isoclines.
 
 par(mfrow=c(2,3)) #show all plots on same screen
 
@@ -166,3 +167,81 @@ title(main="K = 10,000,000")
 print("At the lowest K, the prey population increases and the predator population decreases slightly, before they stabilize.")
 print("As K increases, oscillations in the populations of prey and predator increase, and the time it takes to reach equilibrium also increases.")
 print("When K gets too high, the system appears to go into chaos.")
+
+
+#Problem #2
+
+#Evaluate Jacobian matrix for K = 15,000
+V<-d/(a*e-a*d*h)
+P1<-b/a+(b*V*(a*h-1/K1-a/K1*h*V)/a)
+a11<-b-(P1*a)/(V*a*h+1)^2-(2*V*b)/K1
+a12<-(V*a)/(V*a*h+1)
+a21<-(P1*a*e)/(V*a*h+1)^2
+a22<-(V*a*e)/(V*a*h+1)-d
+  
+matrx1<-function(a11,a12,a21,a22){
+  J1<-matrix(c(a11,    a12,
+              a21,    a22),byrow=T,ncol=2)
+}
+
+J1<-matrx1(a11,a12,a21,a22)
+
+#Evaluate Jacobian matrix for K = 50,000
+
+P2<-b/a+(b*V*(a*h-1/K2-a/K2*h*V)/a)
+b11<-b-(P2*a)/(V*a*h+1)^2-(2*V*b)/K2
+b12<-(V*a)/(V*a*h+1)
+b21<-(P2*a*e)/(V*a*h+1)^2
+b22<-(V*a*e)/(V*a*h+1)-d
+
+matrx2<-function(b11,b12,b21,b22){
+  J2<-matrix(c(b11,    b12,
+               b21,    b22),byrow=T,ncol=2)
+}
+
+J2<-matrx2(b11,b12,b21,b22)
+
+#Evaluate Jacobian matrix for K = 100,000
+
+P3<-b/a+(b*V*(a*h-1/K3-a/K3*h*V)/a)
+c11<-b-(P3*a)/(V*a*h+1)^2-(2*V*b)/K3
+c12<-(V*a)/(V*a*h+1)
+c21<-(P3*a*e)/(V*a*h+1)^2
+c22<-(V*a*e)/(V*a*h+1)-d
+
+matrx3<-function(c11,c12,c21,c22){
+  J3<-matrix(c(c11,    c12,
+               c21,    c22),byrow=T,ncol=2)
+}
+
+J3<-matrx3(c11,c12,c21,c22)
+
+#Evaluate Jacobian matrix for K = 1,000,000
+
+P4<-b/a+(b*V*(a*h-1/K4-a/K4*h*V)/a)
+d11<-b-(P4*a)/(V*a*h+1)^2-(2*V*b)/K4
+d12<-(V*a)/(V*a*h+1)
+d21<-(P4*a*e)/(V*a*h+1)^2
+d22<-(V*a*e)/(V*a*h+1)-d
+
+matrx4<-function(d11,d12,d21,d22){
+  J4<-matrix(c(d11,    d12,
+               d21,    d22),byrow=T,ncol=2)
+}
+
+J4<-matrx4(d11,d12,d21,d22)
+
+#Evaluate Jacobian matrix for K = 10,000,000
+
+P5<-b/a+(b*V*(a*h-1/K4-a/K4*h*V)/a)
+e11<-b-(P5*a)/(V*a*h+1)^2-(2*V*b)/K5
+e12<-(V*a)/(V*a*h+1)
+e21<-(P5*a*e)/(V*a*h+1)^2
+e22<-(V*a*e)/(V*a*h+1)-d
+
+matrx5<-function(e11,e12,e21,e22){
+  J5<-matrix(c(e11,    e12,
+               e21,    e22),byrow=T,ncol=2)
+}
+
+J5<-matrx5(e11,e12,e21,e22)
