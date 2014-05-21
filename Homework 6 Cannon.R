@@ -128,6 +128,9 @@ plot(out5[,1],out5[,2],type='l',col='green',xlab='Month',ylab='Popn size, V and 
 lines(out5[,1],out5[,3],col='blue')
 title(main="K = 10,000,000")
 
+title("Population projections for V and P",outer=TRUE)
+
+
 #Plot the P-V isoclines for each value of K
 #Need to work on these graphs
 #They all show the population projection, but not the predator or prey isoclines.
@@ -163,6 +166,8 @@ plot(out5[,2],out5[,3],type='l',col='red',xlab='V, Prey abundance',ylab='P, Pred
 segments(isoP, 0, isoP, 100,lwd=2)
 curve(isoV5, 0, 30000, add = T)
 title(main="K = 10,000,000")
+
+title("P-V Isoclines", outer=T)
 
 print("At the lowest K, the prey population increases and the predator population decreases slightly, before they stabilize.")
 print("As K increases, oscillations in the populations of prey and predator increase, and the time it takes to reach equilibrium also increases.")
