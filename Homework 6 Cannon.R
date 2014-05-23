@@ -129,7 +129,7 @@ lines(out5[,1],out5[,3],col='blue')
 title(main="K = 10,000,000")
 
 title("Population projections for V and P",outer=T)
-par(xpd=TRUE)
+
 #I needed the legend to appear outside of the plot area, but haven't been able to figure out how to do that. When I asked I was directed to instructions for putting the plot inside of the graph, which didn't answer the question/solve the problem.
 #If I followed the instructions given to create the legend, it covered up the data on the plots, so I removed it.
 
@@ -170,6 +170,9 @@ curve(isoV5, 0, 30000, add = T)
 title(main="K = 10,000,000")
 
 title("P-V Isoclines", outer=T)
+
+#I needed the legend to appear outside of the plot area, but haven't been able to figure out how to do that. When I asked I was directed to instructions for putting the plot inside of the graph, which didn't answer the question/solve the problem.
+#If I followed the instructions I was given to create the legend, it covered up the data on the plots, so I removed it.
 
 print("At the lowest K, the prey population increases and the predator population decreases slightly, before they stabilize.")
 print("As K increases, oscillations in the populations of prey and predator increase, and the time it takes to reach equilibrium also increases.")
