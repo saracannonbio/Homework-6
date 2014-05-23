@@ -34,7 +34,6 @@ tspan<-seq(0,300,by=0.1)  # Timespan to evaluate (in months)
 
 isoV1<-function(x){(b+b*x*(a*h-(1/K1)-a*(1/K1)*h*x))/a}
 isoP<-d/(a*e-a*d*h)
-
 out<-ode(y0,tspan,LV_Pred_RM,params)
 out<-data.frame(out)
 
@@ -141,32 +140,32 @@ par(mfrow=c(2,3)) #show all plots on same screen
 
 plot(out[,2],out[,3],type='l',col='red',xlab='V, Prey abundance',ylab='P, Predator abundance',
      ylim=c(0,5000),xlim=c(0,15000))
-segments(isoP, 0, isoP, 100,lwd=2) 
-curve(isoV1, 0, 30000, add = T)
+segments(isoP, 0, isoP, 10000,lwd=2,col='green') 
+curve(isoV1, 0, 30000, col="blue",add = T)
 title(main="K = 15,000") 
 
 plot(out2[,2],out2[,3],type='l',col='red',xlab='V, Prey abundance',ylab='P, Predator abundance',
      ylim=c(0,5000),xlim=c(0,20000))
-segments(isoP, 0, isoP, 100,lwd=2)
-curve(isoV2, 0, 30000, add = T)
+segments(isoP, 0, isoP, 10000,lwd=2,col='green')
+curve(isoV2, 0, 30000, col="blue", add = T)
 title(main="K = 50,000")
 
 plot(out3[,2],out3[,3],type='l',col='red',xlab='V, Prey abundance',ylab='P, Predator abundance',
      ylim=c(0,8000),xlim=c(0,30000))
-segments(isoP, 0, isoP, 100,lwd=2)
-curve(isoV3, 0, 30000, add = T)
+segments(isoP, 0, isoP, 10000,lwd=2,col='green')
+curve(isoV3, 0, 30000, col='blue', add = T)
 title(main="K = 100,000")
 
 plot(out4[,2],out4[,3],type='l',col='red',xlab='V, Prey abundance',ylab='P, Predator abundance',
      ylim=c(0,10000),xlim=c(0,50000))
-segments(isoP, 0, isoP, 100,lwd=2)
-curve(isoV4, 0, 30000, add = T)
+segments(isoP, 0, isoP, 10000,lwd=2,col='green')
+curve(isoV4, 0, 30000, col='blue',add = T)
 title(main="K = 1,000,000")
 
 plot(out5[,2],out5[,3],type='l',col='red',xlab='V, Prey abundance',ylab='P, Predator abundance',
      ylim=c(0,10000),xlim=c(0,50000))
-segments(isoP, 0, isoP, 100,lwd=2)
-curve(isoV5, 0, 30000, add = T)
+segments(isoP, 0, isoP, 10000,lwd=2,col='green')
+curve(isoV5, 0, 30000, col='blue',add = T)
 title(main="K = 10,000,000")
 
 title("P-V Isoclines", outer=T)
@@ -183,9 +182,9 @@ print("When K gets too high, the system appears to go into chaos.")
 
 #Evaluate Jacobian matrix for K = 15,000
 V<-d/(a*e-a*d*h)
-P1<-b/a+(b*V*(a*h-1/K1-a/K1*h*V)/a)
+P1<-b/a+(b*V*(a*h-(1/K1)-a*(1/K1)*h*V)/a)
 a11<-b-(P1*a)/(V*a*h+1)^2-(2*V*b)/K1
-a12<-(V*a)/(V*a*h+1)
+a12<-(-(V*a))/(V*a*h+1)
 a21<-(P1*a*e)/(V*a*h+1)^2
 a22<-(V*a*e)/(V*a*h+1)-d
   
@@ -198,16 +197,16 @@ J1<-matrx1(a11,a12,a21,a22)
 print(J1)
 eigen(J1)
 
-print("Because the diagnol of the Jacobian matrix is not equal to zero, this indicates there is density dependence.")
+print("Because the diagonal of the Jacobian matrix is not equal to zero, this indicates there is density dependence.")
 print("The eigenvalues are all real numbers, so indicates there are no oscillations.")
 print("Because some of the real parts are <0, this indicates there is an attractor-repellor.")
 
 
 #Evaluate Jacobian matrix for K = 50,000
 
-P2<-b/a+(b*V*(a*h-1/K2-a/K2*h*V)/a)
+P2<-b/a+(b*V*(a*h-(1/K2)-a*(1/K2)*h*V)/a)
 b11<-b-(P2*a)/(V*a*h+1)^2-(2*V*b)/K2
-b12<-(V*a)/(V*a*h+1)
+b12<-(-(V*a))/(V*a*h+1)
 b21<-(P2*a*e)/(V*a*h+1)^2
 b22<-(V*a*e)/(V*a*h+1)-d
 
@@ -221,14 +220,14 @@ J2<-matrx2(b11,b12,b21,b22)
 print(J2)
 eigen(J2)
 print("The non-zero values in the diagonal of the Jacobian matrix show that there is density dependence.")
-print("Because some of the values of the eigenvalues are <0, this indicates that there is an attractor-repellor.")
-print("Because all of the eigenvalues are real numbers (imaginary parts are absent), there are no oscillations.")
+print("Because there are no real parts, this indicates there is a globally unstable point (point repellor).")
+print("Because there are imaginary parts, this indicates there will be oscillations with a period of 2*pi/w.")
 
 #Evaluate Jacobian matrix for K = 100,000
 
-P3<-b/a+(b*V*(a*h-1/K3-a/K3*h*V)/a)
+P3<-b/a+(b*V*(a*h-(1/K3)-a*(1/K3)*h*V)/a)
 c11<-b-(P3*a)/(V*a*h+1)^2-(2*V*b)/K3
-c12<-(V*a)/(V*a*h+1)
+c12<-(-(V*a))/(V*a*h+1)
 c21<-(P3*a*e)/(V*a*h+1)^2
 c22<-(V*a*e)/(V*a*h+1)-d
 
@@ -242,14 +241,14 @@ J3<-matrx3(c11,c12,c21,c22)
 print(J3)
 eigen(J3)
 print("Because the Jacobian matrix has non-zero numbers in the diagonal, this shows density dependence.")
-print("The eigenvalues are all real numbers, indicating there are no oscillations.")
-print("Because some of the eigenvalues are <0, this indicates there is an attractor-repellor.")
+print("Because the eigenvalues are not real, this indicates there is a globally unstable point (point repeller)")
+print("Because there are imaginary parts present, oscillations will occur.")
 
 #Evaluate Jacobian matrix for K = 1,000,000
 
-P4<-b/a+(b*V*(a*h-1/K4-a/K4*h*V)/a)
+P4<-b/a+(b*V*(a*h-(1/K4)-a*(1/K4)*h*V)/a)
 d11<-b-(P4*a)/(V*a*h+1)^2-(2*V*b)/K4
-d12<-(V*a)/(V*a*h+1)
+d12<-(-(V*a))/(V*a*h+1)
 d21<-(P4*a*e)/(V*a*h+1)^2
 d22<-(V*a*e)/(V*a*h+1)-d
 
@@ -263,15 +262,15 @@ J4<-matrx4(d11,d12,d21,d22)
 print(J4)
 eigen(J4)
 print("Because the Jacobian matrix has non-zero numbers in the diagonal, this shows density dependence.")
-print("The eigenvalues are all real numbers, indicating there are no oscillations.")
-print("Because some of the eigenvalues are <0, this indicates there is an attractor-repellor.")
+print("The eigenvalues are all non-real numbers. Because there are no real numbers <0, this tells us there is a globally unstable point (stable repeller).")
+print("Because imaginary parts are present, oscillations will occur.")
 
 
 #Evaluate Jacobian matrix for K = 10,000,000
 
-P5<-b/a+(b*V*(a*h-1/K4-a/K4*h*V)/a)
+P5<-b/a+(b*V*(a*h-(1/K4)-a*(1/K4)*h*V)/a)
 e11<-b-(P5*a)/(V*a*h+1)^2-(2*V*b)/K5
-e12<-(V*a)/(V*a*h+1)
+e12<-(-(V*a))/(V*a*h+1)
 e21<-(P5*a*e)/(V*a*h+1)^2
 e22<-(V*a*e)/(V*a*h+1)-d
 
@@ -286,5 +285,5 @@ print(J5)
 eigen(J5)
 
 print("Because the Jacobian matrix has non-zero numbers in the diagonal, this shows density dependence.")
-print("The eigenvalues are all real numbers, indicating there are no oscillations.")
-print("Because some of the eigenvalues are <0, this indicates there is an attractor-repellor.")
+print("The eigenvalues are all non-real numbers. Because there are no real parts <0, this tells us there is a globally unstable point (point repellor).")
+print("Imaginary parts are present, which tells us that oscillations will occur.")
