@@ -10,8 +10,8 @@ LV_Pred_RM<-function(t,y,params){
   V<-y[1]
   P<-y[2]
   with(as.list(params),{
-    dVdt<-b*V*(1-(1/K1)*V)-a*V*P/(1+a*h*V)
-    dPdt<-e*a*V*P/(1+a*h*V)-d*P
+    dVdt<-b*V*(1-(1/K1)*V)-(a*V*P)/(1+a*h*V)
+    dPdt<-e*((a*V*P)/(1+a*h*V))-d*P
     return(list(c(dVdt,dPdt)))
   })}
 
@@ -43,8 +43,8 @@ LV_Pred_RM2<-function(t,y,params2){
   V<-y[1]
   P<-y[2]
   with(as.list(params2),{
-    dVdt2<-b*V*(1-(1/K2)*V)-a*V*P/(1+a*h*V)
-    dPdt2<-e*a*V*P/(1+a*h*V)-d*P
+    dVdt2<-b*V*(1-(1/K2)*V)-(a*V*P)/(1+a*h*V)
+    dPdt2<-e*((a*V*P)/(1+a*h*V))-d*P
     return(list(c(dVdt2,dPdt2)))
   })}
 
@@ -60,8 +60,8 @@ LV_Pred_RM3<-function(t,y,params3){
   V<-y[1]
   P<-y[2]
   with(as.list(params3),{
-    dVdt3<-b*V*(1-(1/K3)*V)-a*V*P/(1+a*h*V)
-    dPdt3<-e*a*V*P/(1+a*h*V)-d*P
+    dVdt3<-b*V*(1-(1/K3)*V)-(a*V*P)/(1+a*h*V)
+    dPdt3<-e*((a*V*P)/(1+a*h*V))-d*P
     return(list(c(dVdt3,dPdt3)))
   })}
 
@@ -76,8 +76,8 @@ LV_Pred_RM4<-function(t,y,params4){
   V<-y[1]
   P<-y[2]
   with(as.list(params4),{
-    dVdt4<-b*V*(1-(1/K4)*V)-a*V*P/(1+a*h*V)
-    dPdt4<-e*a*V*P/(1+a*h*V)-d*P
+    dVdt4<-b*V*(1-(1/K4)*V)-(a*V*P)/(1+a*h*V)
+    dPdt4<-e*((a*V*P)/(1+a*h*V))-d*P
     return(list(c(dVdt4,dPdt4)))
   })}
 
@@ -147,25 +147,25 @@ title(main="K = 15,000")
 plot(out2[,2],out2[,3],type='l',col='red',xlab='V, Prey abundance',ylab='P, Predator abundance',
      ylim=c(0,5000),xlim=c(0,20000))
 segments(isoP, 0, isoP, 10000,lwd=2,col='green')
-curve(isoV2, 0, 30000, col="blue", add = T)
+curve(isoV2, 0, 50000, col="blue", add = T)
 title(main="K = 50,000")
 
 plot(out3[,2],out3[,3],type='l',col='red',xlab='V, Prey abundance',ylab='P, Predator abundance',
      ylim=c(0,8000),xlim=c(0,30000))
 segments(isoP, 0, isoP, 10000,lwd=2,col='green')
-curve(isoV3, 0, 30000, col='blue', add = T)
+curve(isoV3, 0, 100000, col='blue', add = T)
 title(main="K = 100,000")
 
 plot(out4[,2],out4[,3],type='l',col='red',xlab='V, Prey abundance',ylab='P, Predator abundance',
      ylim=c(0,10000),xlim=c(0,50000))
 segments(isoP, 0, isoP, 10000,lwd=2,col='green')
-curve(isoV4, 0, 30000, col='blue',add = T)
+curve(isoV4, 0, 1000000, col='blue',add = T)
 title(main="K = 1,000,000")
 
 plot(out5[,2],out5[,3],type='l',col='red',xlab='V, Prey abundance',ylab='P, Predator abundance',
      ylim=c(0,10000),xlim=c(0,50000))
 segments(isoP, 0, isoP, 10000,lwd=2,col='green')
-curve(isoV5, 0, 30000, col='blue',add = T)
+curve(isoV5, 0, 10000000, col='blue',add = T)
 title(main="K = 10,000,000")
 
 title("P-V Isoclines", outer=T)
@@ -177,6 +177,7 @@ print("At the lowest K, the prey population increases and the predator populatio
 print("As K increases, oscillations in the populations of prey and predator increase, and the time it takes to reach equilibrium also increases.")
 print("When K gets too high, the system appears to go into chaos.")
 
+#Note: I was able to get all of the components of the graph to work except for the predator isoclines (IsoP). I think there must be an error with in the function I used, but I can't find the error. 
 
 #Problem #2
 
