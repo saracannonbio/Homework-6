@@ -129,9 +129,9 @@ lines(out5[,1],out5[,3],col='blue')
 title(main="K = 10,000,000")
 
 title("Population projections for V and P",outer=T)
-legend("bottomright",c("Prey","Predator"),lty=1,pch=c(1,19),col=c("green","blue"))
-#note: I asked how to put the legend outside of the graph but the website i was given as a reference did not answer that question, so I left it as-is.
-
+par(xpd=TRUE)
+#I needed the legend to appear outside of the plot area, but haven't been able to figure out how to do that. When I asked I was directed to instructions for putting the plot inside of the graph, which didn't answer the question/solve the problem.
+#If I followed the instructions given to create the legend, it covered up the data on the plots, so I removed it.
 
 #Plot the P-V isoclines for each value of K
 #Need to work on these graphs
